@@ -1,12 +1,16 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
+from src.core._shared.infraestructure.fastapi_auth_adapter import FastApiAuthAdapter
 from src.entrypoints.web.v1.admin_reports.schemas import AdminReportsResponse, AdminReport, Report
 
 admin_reports_router = APIRouter()
 
 
-@admin_reports_router.get("/", response_model=AdminReportsResponse)
-async def get():
+@admin_reports_router.get(
+    "/",
+    response_model=AdminReportsResponse,
+    dependencies=[Depends(FastApiAuthAdapter.has_role(role="admin"))])
+async def admin():
     return AdminReportsResponse(
         message="Hello, admin!",
         data=AdminReport(
