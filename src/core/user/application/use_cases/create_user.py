@@ -1,24 +1,21 @@
 from src.core.user.application.use_cases.dto import UserDto
-from src.core.user.infraestructure.repository_sqlmodel_adapter import UserModel, PurchaseModel
-from src.core._shared.infraestructure.database import engine, Session
+from src.core.user.domain.entity.user import UserEntity
+from src.core.user.infraestructure.repository_interface import RepositoryInterface
 
 
 class CreateUser():
+    def __init__(self, repository: RepositoryInterface):
+        self.repository = repository
 
     def execute(self, input_create: UserDto.InputNewUser) -> None:
         try:
-
-            purchases = [PurchaseModel(**item.model_dump()) for item in input_create.purchases]
-            new_user = UserModel(
+            new_user = UserEntity(
                 name=input_create.name,
                 email=input_create.email,
-                hashed_password=input_create.password,
-                purchases=purchases
+                password=input_create.password,
+                purchases=input_create.purchases
             )
-
-            with Session(engine) as session:
-                session.add(new_user)
-                session.commit()
-
-        except Exception as e:
+        except Exception:
             pass
+
+        self.repository.save(new_user)

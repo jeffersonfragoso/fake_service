@@ -4,3 +4,6 @@ engine = create_engine("sqlite:///database.db")
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
+
+def factory_session() -> Session:
+    return Session(engine)
