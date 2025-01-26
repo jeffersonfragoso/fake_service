@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from src.core._shared.infraestructure.database import create_db_and_tables
 from src.entrypoints.web.v1 import v1_routers
 
 def register_routes(app: FastAPI):
@@ -11,6 +12,7 @@ def create_app() -> FastAPI:
         description="Fake Api",
     )
 
+    create_db_and_tables()
     register_routes(app)
 
     return app
