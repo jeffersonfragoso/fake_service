@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class RepositoryInterface(ABC):
@@ -15,5 +16,5 @@ class RepositoryInterface(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def list(self, entity) -> None:
+    def first(self) -> Any:
         raise NotImplementedError

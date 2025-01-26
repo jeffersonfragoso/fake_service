@@ -16,8 +16,10 @@ user_router = APIRouter()
     response_model=UserResponse,
     dependencies=[Depends(FastApiAuthAdapter.has_role(role="user"))]
 )
-async def get():
-    use_case = GetUser()
+async def get(
+    repository: RepositoryInterface = Depends(factory_user_repository)
+):
+    use_case = GetUser(repository)
     output = use_case.execute()
 
     return UserResponse(

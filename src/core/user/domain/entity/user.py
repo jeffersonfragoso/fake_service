@@ -6,13 +6,13 @@ class UserEntity:
         self,
         name: str,
         email: str,
-        password: str,
+        encrypted_password: str | None = None,
         purchases: list[Any] | None = None,
-        reports: list[Any] | None = None
+        reports: list[Any] | None = None,
     ):
        self.name = name
        self.email = email
-       self.password = password
+       self.encrypted_password = encrypted_password
        self.purchases: list[Any] | None= purchases
        self.reports: list[Any] | None = reports
 
@@ -26,7 +26,7 @@ class UserEntity:
         if not self.email:
             raise ValueError("email cannot be empty")
 
-        if not self.password:
+        if not self.encrypted_password:
             raise ValueError("password cannot be empty")
 
         if not any([self.purchases, self.reports]):

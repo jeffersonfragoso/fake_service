@@ -1,3 +1,4 @@
+from src.core._shared.infraestructure.crypt import Crypt
 from src.core.user.application.use_cases.dto import UserDto
 from src.core.user.domain.entity.user import UserEntity
 from src.core.user.infraestructure.repository_interface import RepositoryInterface
@@ -12,7 +13,7 @@ class CreateUser():
             new_user = UserEntity(
                 name=input_create.name,
                 email=input_create.email,
-                password=input_create.password,
+                encrypted_password=Crypt.encrypt_secret(input_create.password),
                 purchases=input_create.purchases
             )
         except Exception:

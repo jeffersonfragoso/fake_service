@@ -1,5 +1,5 @@
 from typing import List
-from sqlmodel import Field, SQLModel, Relationship
+from sqlmodel import Field, SQLModel, Relationship, select
 
 from src.core.user.infraestructure.repository_interface import RepositoryInterface
 from src.core._shared.infraestructure.database import Session
@@ -32,7 +32,7 @@ class UserModel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     email: str
-    hashed_password: str
+    encrypted_password: str
     purchases: List[PurchaseModel] | None = Relationship(back_populates="user")
     reports: List[ReportModel] | None = Relationship(back_populates="user")
 
@@ -46,22 +46,38 @@ class SqlModelUserRepository(RepositoryInterface):
         try:
             self.session.add(self._to_orm(user))
             self.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             self.rollback()
 
+    def first(self) -> UserEntity:
+        try:
+            statement = select(UserModel)
+            user_db = self.session.exec(statement).first()
 
-    def list(self, user: UserEntity) -> None:
-        raise NotImplementedError
+            if user_db:
+                return self.to_entity(user_db)
+            else:
+                return None
+        except Exception as e:
+            print(e)
 
     def _to_orm(self, entity: UserEntity):
         purchases = [PurchaseModel(**item.model_dump()) for item in entity.purchases]
         user_model = UserModel(
             name=entity.name,
             email=entity.email,
-            hashed_password=entity.password,
+            encrypted_password=entity.encrypted_password,
             purchases=purchases
         )
         return user_model
+
+    def to_entity(self, model: UserModel):
+        return UserEntity(
+            name=model.name,
+            email=model.email,
+            purchases=model.purchases
+        )
 
     def commit(self) -> None:
         self.session.commit()

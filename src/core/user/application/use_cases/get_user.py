@@ -1,24 +1,21 @@
-from src.core.user.infraestructure.repository_interface import AbstractRepository
+from src.core.user.infraestructure.repository_interface import RepositoryInterface
 from src.core.user.application.use_cases.dto import UserDto
-from src.core.user.infraestructure.repository_sqlmodel_adapter import UserModel
-from src.core._shared.infraestructure.database import engine, Session, select
-
 
 class GetUser():
+    def __init__(self, repository: RepositoryInterface):
+        self.repository = repository
 
     def execute(self) -> UserDto.OutPutGetUser:
         try:
-            with Session(engine) as session:
-                statement = select(UserModel)
-                user_db = session.exec(statement).first()
+            entity = self.repository.first()
+            purchases = [UserDto.PurchaseDto(**item.__dict__) for item in entity.purchases]
 
-                purchases = [UserDto.PurchaseDto(**item.model_dump()) for item in user_db.purchases]
+            output = UserDto.OutPutGetUser(
+                name=entity.name,
+                email=entity.email,
+                purchases=purchases
+            )
 
-                output = UserDto.OutPutGetUser(
-                    **user_db.model_dump(),
-                    purchases=purchases
-                )
-
-                return output
+            return output
         except Exception as e:
             pass
