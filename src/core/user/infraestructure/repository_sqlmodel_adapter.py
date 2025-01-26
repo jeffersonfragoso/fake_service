@@ -2,7 +2,6 @@ from typing import List
 from sqlmodel import Field, SQLModel, Relationship
 
 
-
 class ReportModel(SQLModel, table=True):
     __tablename__ = "report"
 
