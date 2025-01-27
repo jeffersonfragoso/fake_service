@@ -17,7 +17,7 @@ RUN apt-get update && \
   pip install "poetry==$POETRY_VERSION"
 
 # instala dependencias do app
-FROM base AS dependencies_stage
+FROM base as dependencies_stage
 WORKDIR /tmp
 COPY ./pyproject.toml ./poetry.lock /tmp/
 RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
