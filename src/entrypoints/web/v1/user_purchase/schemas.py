@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from src.core.user.application.use_cases.dto import UserPurchaseDto
+from src.core.user_purchases.application.use_cases.dto import UserPurchaseDto
 
-class UserResponse(BaseModel):
+class UserPurchasesResponse(BaseModel):
     message: str
     data: UserPurchaseDto.OutPutGetUserPurchases

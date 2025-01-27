@@ -16,5 +16,5 @@ class RepositoryInterface(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def first_of_role(self, role: str) -> Any:
+    def first(self, role: str = None) -> Any:
         raise NotImplementedError

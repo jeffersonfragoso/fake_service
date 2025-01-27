@@ -16,7 +16,6 @@ class UserPurchaseDto:
     class InputNewUserPurchase(BaseModel):
         name: str
         email: str
-        role: str
         password: str
         purchases: list["PurchaseDto"] | None = None
 
@@ -36,6 +35,5 @@ class AdminReportDto:
     class InputNewAdminReports(BaseModel):
         name: str
         email: str
-        role: str
         password: str
         reports: list["ReportDto"] | None = None

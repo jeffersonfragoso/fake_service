@@ -1,7 +1,7 @@
 from src.core._shared.infraestructure.crypt import Crypt
-from src.core.user.application.use_cases.dto import AdminReportDto
-from src.core.user.domain.entity.user import UserEntity
-from src.core.user.infraestructure.repository_interface import RepositoryInterface
+from src.core.admin_reports.application.use_cases.dto import AdminReportDto
+from src.core.admin_reports.domain.entity.admin_report import AdeminReportEntity
+from src.core._shared.infraestructure.repository_interface import RepositoryInterface
 
 
 class CreateAdminReports():
@@ -10,14 +10,14 @@ class CreateAdminReports():
 
     def execute(self, input_create: AdminReportDto.InputNewAdminReports) -> None:
         try:
-            new_user = UserEntity(
+            new_report = AdeminReportEntity(
                 name=input_create.name,
                 email=input_create.email,
-                role=input_create.role,
                 encrypted_password=Crypt.encrypt_secret(input_create.password),
                 reports=input_create.reports
             )
+            new_report.assign_hole()
         except Exception as e:
             pass
 
-        self.repository.save(new_user)
+        self.repository.save(new_report)
