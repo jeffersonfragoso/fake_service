@@ -1,0 +1,18 @@
+services:
+  api:
+    container_name: api
+    build: ./
+    image: fake-service-image
+    ports:
+      - 8000:8000
+    command: >
+      python -m
+        uvicorn
+        --factory
+        src.entrypoints.web.main:create_app
+        --loop 'uvloop'
+        --log-level info
+        --reload
+        --workers 1
+        --host 0.0.0.0
+        --port 8000

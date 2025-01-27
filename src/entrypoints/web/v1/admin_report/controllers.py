@@ -36,7 +36,7 @@ async def admin(
 
     return AdminReportsResponse(
         message="Hello, admin!",
-        data=output
+        data=output if output else {}
     )
 
 

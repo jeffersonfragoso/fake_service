@@ -36,7 +36,7 @@ async def get(
 
     return UserPurchasesResponse(
         message="Hello, user!",
-        data=output
+        data=output if output else {}
     )
 
 @user_router.post("/")

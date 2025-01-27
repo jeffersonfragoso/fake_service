@@ -5,9 +5,9 @@ class GetAdminReports():
     def __init__(self, repository: RepositoryInterface):
         self.repository = repository
 
-    def execute(self) -> AdminReportDto.OutPutGetAdminReports:
-        try:
-            entity = self.repository.first()
+    def execute(self) -> AdminReportDto.OutPutGetAdminReports | None:
+        entity = self.repository.first()
+        if entity:
             reports = [AdminReportDto.ReportDto(**item.__dict__) for item in entity.reports]
 
             output = AdminReportDto.OutPutGetAdminReports(
@@ -16,5 +16,3 @@ class GetAdminReports():
                 reports=reports
             )
             return output
-        except Exception as e:
-            pass

@@ -5,9 +5,10 @@ class GetUserPurchases():
     def __init__(self, repository: RepositoryInterface):
         self.repository = repository
 
-    def execute(self) -> UserPurchaseDto.OutPutGetUserPurchases:
-        try:
-            entity = self.repository.first()
+    def execute(self) -> UserPurchaseDto.OutPutGetUserPurchases | None:
+        entity = self.repository.first()
+
+        if entity:
             purchases = [UserPurchaseDto.PurchaseDto(**item.__dict__) for item in entity.purchases]
 
             output = UserPurchaseDto.OutPutGetUserPurchases(
@@ -16,5 +17,3 @@ class GetUserPurchases():
                 purchases=purchases
             )
             return output
-        except Exception as e:
-            pass
