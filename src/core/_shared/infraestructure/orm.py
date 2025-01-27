@@ -2,13 +2,13 @@ from typing import List
 from sqlmodel import Field, SQLModel, Relationship, select
 
 
-class User(SQLModel, table=True):
+class UserModel(SQLModel, table=True):
     __tablename__ = "user"
 
     id: int | None = Field(default=None, primary_key=True)
     username: str
-    role: str = Field(index=True)
     encrypted_password: str
+    role: str = Field(index=True)
 
 
 class ReportModel(SQLModel, table=True):

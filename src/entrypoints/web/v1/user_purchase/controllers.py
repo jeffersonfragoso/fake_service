@@ -1,25 +1,30 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from src.core._shared.infraestructure.fastapi_auth_adapter import FastApiAuthAdapter
+from src.core.auth.application.use_cases.is_user import IsUser
+from src.core.auth.infraestructure.fastapi_auth_adapter import JwtAuthAdapter
+from src.core.auth.infraestructure.repository.sqlmodel.user_adapter import UserRepositoryInterface
 from src.core.user_purchases.application.use_cases.get_user_purchases import GetUserPurchases
 from src.core.user_purchases.application.use_cases.create_user_purchases import CreateUserPurchases
 from src.core.user_purchases.application.use_cases.dto import UserPurchaseDto
 from src.core._shared.infraestructure.repository_interface import RepositoryInterface
-from src.entrypoints.web.v1.dependencies import factory_user_purchase_repository
+from src.entrypoints.web.v1.dependencies import factory_user_purchase_repository, factory_user_repository
 from src.entrypoints.web.v1.user_purchase.schemas import UserPurchasesResponse
 
 user_router = APIRouter()
 
 
-@user_router.get(
-    "/",
-    response_model=UserPurchasesResponse,
-    dependencies=[Depends(FastApiAuthAdapter.has_role(role="user"))]
-)
+@user_router.get("/", response_model=UserPurchasesResponse)
 async def get(
-    repository: RepositoryInterface = Depends(factory_user_purchase_repository)
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(HTTPBearer())],
+    user_repository: UserRepositoryInterface = Depends(factory_user_repository),
+    purcahse_repository: RepositoryInterface = Depends(factory_user_purchase_repository)
 ):
-    use_case = GetUserPurchases(repository)
+    is_user = IsUser(user_repository)
+    is_user.execute(credentials.credentials)
+
+    use_case = GetUserPurchases(purcahse_repository)
     output = use_case.execute()
 
     return UserPurchasesResponse(
@@ -30,7 +35,7 @@ async def get(
 @user_router.post("/")
 async def post(
     input_create: UserPurchaseDto.InputNewUserPurchase,
-    repository: RepositoryInterface = Depends(factory_user_purchase_repository)
+    purcahse_repository: RepositoryInterface = Depends(factory_user_purchase_repository)
 ):
-    use_case = CreateUserPurchases(repository)
+    use_case = CreateUserPurchases(purcahse_repository)
     use_case.execute(input_create)

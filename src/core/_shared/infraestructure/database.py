@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, create_engine, Session, select
 
 from src.core._shared.infraestructure.crypt import Crypt
-from src.core._shared.infraestructure.orm import User
+from src.core._shared.infraestructure.orm import UserModel
 
 engine = create_engine("sqlite:///database.db")
 
@@ -9,12 +9,12 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 def seed_database():
-    admin = User(
+    admin = UserModel(
         username="admin",
         role="admin",
         encrypted_password=Crypt.encrypt_secret("JKSipm0YH")
     )
-    user = User(
+    user = UserModel(
         username="user",
         role="user",
         encrypted_password=Crypt.encrypt_secret("L0XuwPOdS5U")
