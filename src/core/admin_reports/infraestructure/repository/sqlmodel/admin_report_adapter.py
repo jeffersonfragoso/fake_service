@@ -19,7 +19,7 @@ class SqlModelAdminReportRepository(RepositoryInterface):
 
     def first(self) -> AdeminReportEntity:
         try:
-            statement = select(AdminReportModel).where(AdminReportModel.role == "admin")
+            statement = select(AdminReportModel)
             user_db = self.session.exec(statement).first()
 
             if user_db:
@@ -35,8 +35,6 @@ class SqlModelAdminReportRepository(RepositoryInterface):
         user_model = AdminReportModel(
             name=entity.name,
             email=entity.email,
-            role=entity.role,
-            encrypted_password=entity.encrypted_password,
             reports=reports_model
         )
         return user_model
@@ -45,7 +43,6 @@ class SqlModelAdminReportRepository(RepositoryInterface):
         return AdeminReportEntity(
             name=model.name,
             email=model.email,
-            role=model.role,
             reports=model.reports
         )
 

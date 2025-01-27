@@ -2,6 +2,15 @@ from typing import List
 from sqlmodel import Field, SQLModel, Relationship, select
 
 
+class User(SQLModel, table=True):
+    __tablename__ = "user"
+
+    id: int | None = Field(default=None, primary_key=True)
+    username: str
+    role: str = Field(index=True)
+    encrypted_password: str
+
+
 class ReportModel(SQLModel, table=True):
     __tablename__ = "report"
 
@@ -18,8 +27,6 @@ class AdminReportModel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     email: str
-    role: str = Field(index=True)
-    encrypted_password: str
     reports: List[ReportModel] = Relationship(back_populates="admin_report")
 
 
@@ -39,6 +46,4 @@ class UserPurchaseModel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     email: str
-    role: str = Field(index=True)
-    encrypted_password: str
     purchases: List[PurchaseModel] = Relationship(back_populates="user_purhchase")

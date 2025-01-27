@@ -19,7 +19,7 @@ class SqlModelUserPurchaseRepository(RepositoryInterface):
 
     def first(self) -> UserPurchaseEntity:
         try:
-            statement = select(UserPurchaseModel).where(UserPurchaseModel.role == "user")
+            statement = select(UserPurchaseModel)
             user_db = self.session.exec(statement).first()
 
             if user_db:
@@ -34,8 +34,6 @@ class SqlModelUserPurchaseRepository(RepositoryInterface):
         user_model = UserPurchaseModel(
             name=entity.name,
             email=entity.email,
-            role=entity.role,
-            encrypted_password=entity.encrypted_password,
             purchases=purchases_model,
         )
         return user_model
@@ -45,7 +43,6 @@ class SqlModelUserPurchaseRepository(RepositoryInterface):
         return UserPurchaseEntity(
             name=model.name,
             email=model.email,
-            role=model.role,
             purchases=model.purchases,
         )
 

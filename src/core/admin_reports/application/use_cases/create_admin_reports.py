@@ -13,10 +13,8 @@ class CreateAdminReports():
             new_report = AdeminReportEntity(
                 name=input_create.name,
                 email=input_create.email,
-                encrypted_password=Crypt.encrypt_secret(input_create.password),
                 reports=input_create.reports
             )
-            new_report.assign_hole()
         except Exception as e:
             pass
 

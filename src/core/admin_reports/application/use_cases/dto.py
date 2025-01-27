@@ -17,5 +17,4 @@ class AdminReportDto:
     class InputNewAdminReports(BaseModel):
         name: str
         email: str
-        password: str
         reports: list["ReportDto"] | None = None
