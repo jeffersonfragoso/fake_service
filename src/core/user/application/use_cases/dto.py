@@ -2,25 +2,40 @@
 from pydantic import BaseModel
 
 
-class UserDto:
+class UserPurchaseDto:
     class PurchaseDto(BaseModel):
         id: int
         item: str
         price: float
+
+    class OutPutGetUserPurchases(BaseModel):
+        name: str
+        email: str
+        purchases: list["PurchaseDto"]
+
+    class InputNewUserPurchase(BaseModel):
+        name: str
+        email: str
+        role: str
+        password: str
+        purchases: list["PurchaseDto"] | None = None
+
+
+class AdminReportDto:
 
     class ReportDto(BaseModel):
         id: int
         title: str
         status: str
 
-    class OutPutGetUser(BaseModel):
+    class OutPutGetAdminReports(BaseModel):
         name: str
         email: str
-        purchases: list["PurchaseDto"]
+        reports: list["ReportDto"]
 
-    class InputNewUser(BaseModel):
+    class InputNewAdminReports(BaseModel):
         name: str
         email: str
+        role: str
         password: str
-        purchases: list["PurchaseDto"] | None = None
         reports: list["ReportDto"] | None = None

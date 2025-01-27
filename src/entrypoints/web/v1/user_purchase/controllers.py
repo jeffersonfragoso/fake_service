@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 
 from src.core._shared.infraestructure.fastapi_auth_adapter import FastApiAuthAdapter
-from src.core.user.application.use_cases.get_user import GetUser
-from src.core.user.application.use_cases.create_user import CreateUser
-from src.core.user.application.use_cases.dto import UserDto
+from src.core.user.application.use_cases.get_user_purchases import GetUserPurchases
+from src.core.user.application.use_cases.create_user_purchases import CreateUserPurchases
+from src.core.user.application.use_cases.dto import UserPurchaseDto
 from src.core.user.infraestructure.repository_interface import RepositoryInterface
 from src.entrypoints.web.v1.dependencies import factory_user_repository
-from src.entrypoints.web.v1.user.schemas import UserResponse
+from src.entrypoints.web.v1.user_purchase.schemas import UserResponse
 
 user_router = APIRouter()
 
@@ -19,7 +19,7 @@ user_router = APIRouter()
 async def get(
     repository: RepositoryInterface = Depends(factory_user_repository)
 ):
-    use_case = GetUser(repository)
+    use_case = GetUserPurchases(repository)
     output = use_case.execute()
 
     return UserResponse(
@@ -29,8 +29,8 @@ async def get(
 
 @user_router.post("/")
 async def post(
-    input_create: UserDto.InputNewUser,
+    input_create: UserPurchaseDto.InputNewUserPurchase,
     repository: RepositoryInterface = Depends(factory_user_repository)
 ):
-    use_case = CreateUser(repository)
+    use_case = CreateUserPurchases(repository)
     use_case.execute(input_create)

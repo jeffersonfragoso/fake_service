@@ -31,10 +31,11 @@ class UserModel(SQLModel, table=True):
 
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True)
-    email: str
+    email: str = Field(index=True)
     encrypted_password: str
-    purchases: List[PurchaseModel] | None = Relationship(back_populates="user")
-    reports: List[ReportModel] | None = Relationship(back_populates="user")
+    purchases: List[PurchaseModel] = Relationship(back_populates="user")
+    reports: List[ReportModel] = Relationship(back_populates="user")
+    role: str = Field(index=True)
 
 
 class SqlModelUserRepository(RepositoryInterface):
@@ -50,9 +51,9 @@ class SqlModelUserRepository(RepositoryInterface):
             print(e)
             self.rollback()
 
-    def first(self) -> UserEntity:
+    def first_of_role(self, role: str) -> UserEntity:
         try:
-            statement = select(UserModel)
+            statement = select(UserModel).where(UserModel.role == role)
             user_db = self.session.exec(statement).first()
 
             if user_db:
@@ -63,21 +64,34 @@ class SqlModelUserRepository(RepositoryInterface):
             print(e)
 
     def _to_orm(self, entity: UserEntity):
-        purchases = [PurchaseModel(**item.model_dump()) for item in entity.purchases]
+        purchases_model = []
+        reports_model = []
+
+        if entity.purchases:
+            purchases_model = [PurchaseModel(**item.model_dump()) for item in entity.purchases]
+        else:
+            reports_model = [ReportModel(**item.model_dump()) for item in entity.reports]
+
         user_model = UserModel(
             name=entity.name,
             email=entity.email,
+            role=entity.role,
             encrypted_password=entity.encrypted_password,
-            purchases=purchases
+            purchases=purchases_model,
+            reports=reports_model
         )
         return user_model
+
 
     def to_entity(self, model: UserModel):
         return UserEntity(
             name=model.name,
             email=model.email,
-            purchases=model.purchases
+            role=model.role,
+            purchases=model.purchases,
+            reports=model.reports
         )
+
 
     def commit(self) -> None:
         self.session.commit()

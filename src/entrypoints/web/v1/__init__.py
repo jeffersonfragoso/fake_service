@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
 from .health_check.controllers import health_check_router
-from .user.controllers import user_router
-from .admin_reports.controllers import admin_reports_router
+from .user_purchase.controllers import user_router
+from .admin_report.controllers import admin_reports_router
 from .auth.controllers import auth_router
 
 v1_routers = APIRouter(prefix="/v1")
