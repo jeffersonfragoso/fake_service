@@ -1,8 +1,6 @@
 from passlib.context import CryptContext
 
-
-class AuthenticationException(BaseException):
-    pass
+from src.core.auth.infraestructure.exceptions import UnauthorizedException
 
 
 class Crypt:
@@ -16,5 +14,6 @@ class Crypt:
     def verify_secret(cls, secret: str, encrypted_secret: str) -> bool:
         correct_secret = cls.ctx.verify(secret, encrypted_secret)
         if not correct_secret:
-            raise AuthenticationException("Could not validate credentials")
+            raise UnauthorizedException(detail="Bad secret")
+
         return correct_secret

@@ -8,13 +8,10 @@ class CreateUserPurchases():
         self.repository = repository
 
     def execute(self, input_create: UserPurchaseDto.InputNewUserPurchase) -> None:
-        try:
-            new_purchase = UserPurchaseEntity(
-                name=input_create.name,
-                email=input_create.email,
-                purchases=input_create.purchases,
-            )
-        except Exception:
-            pass
+        new_purchase = UserPurchaseEntity(
+            name=input_create.name,
+            email=input_create.email,
+            purchases=input_create.purchases,
+        )
 
         self.repository.save(new_purchase)

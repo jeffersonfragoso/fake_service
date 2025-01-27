@@ -9,13 +9,9 @@ class CreateAdminReports():
         self.repository = repository
 
     def execute(self, input_create: AdminReportDto.InputNewAdminReports) -> None:
-        try:
-            new_report = AdeminReportEntity(
-                name=input_create.name,
-                email=input_create.email,
-                reports=input_create.reports
-            )
-        except Exception as e:
-            pass
-
+        new_report = AdeminReportEntity(
+            name=input_create.name,
+            email=input_create.email,
+            reports=input_create.reports
+        )
         self.repository.save(new_report)
