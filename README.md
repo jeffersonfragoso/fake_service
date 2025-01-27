@@ -1,3 +1,29 @@
+# Fake Service
+
+Serviço responsável por **User Purchases** e **Admin Reports**
+
+## Funcionamento
+
+Para possibilitar operar o sistema, durante a inicialização da API, será feito o cadastro de dois usuários, conforme configurado no arquivo de ambiente `.env`.
+
+Um usuário terá o papel **user** e o outro terá o papel **admin**.
+
+Através da rota `[POST] /v1/user` é possível cadastrar itens de **User Purchases**
+
+Através da rota `[POST] /v1/admin` é possível cadastrar itens de **Admin Reports**
+
+Através da rota `[GET] /v1/user` é possível consultar o primeiro **User Purchases** cadastrado.
+
+Através da rota `[GET] /v1/admin` é possível consultar o primeiro **Admin Reports** cadastrado.
+
+As rotas `[GET] /v1/user` e `[GET] /v1/admin` são protegidas, sendo acessível apenas para usuários com o papel **user** e **admin** respoectivamente.
+
+Para utilizar as rotas `[GET] /v1/user` e `[GET] /v1/admin` é necessário informar o header `Authorization: Bearer <token>`.
+
+Através da rota `[POST] /v1/token` é possível obter o token de autenticação conforme credenciais informadas.
+
+Para testar o funcionamento utilize a interface gráfica do Swagger após iniciar a API.
+
 ## Para Executar
 
 #### Pré-requisitos
