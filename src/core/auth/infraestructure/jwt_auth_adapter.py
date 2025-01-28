@@ -4,7 +4,6 @@ from src.core.auth.application.use_cases.dto import AuthDto
 from src.core.auth.infraestructure.auth_interface import AuthInterface
 from src.core.auth.infraestructure.exceptions import ForbiddenException, UnauthorizedException
 
-
 SECRET_KEY = "secret"
 
 

@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel
 
 
@@ -11,9 +10,9 @@ class UserPurchaseDto:
     class OutPutGetUserPurchases(BaseModel):
         name: str
         email: str
-        purchases: list["PurchaseDto"]
+        purchases: list["PurchaseDto"]  # noqa: F821
 
     class InputNewUserPurchase(BaseModel):
         name: str
         email: str
-        purchases: list["PurchaseDto"] | None = None
+        purchases: list["PurchaseDto"] | None = None  # noqa: F821

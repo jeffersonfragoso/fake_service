@@ -1,13 +1,13 @@
-from src.core._shared.infraestructure.orm import AdminReportModel, ReportModel, select
-from src.core.admin_reports.domain.entity.admin_report import AdminReportEntity
-from src.core._shared.infraestructure.repository_interface import RepositoryInterface
 from src.core._shared.infraestructure.database import Session
+from src.core._shared.infraestructure.orm import AdminReportModel, ReportModel, select
+from src.core._shared.infraestructure.repository_interface import RepositoryInterface
+from src.core.admin_reports.domain.entity.admin_report import AdminReportEntity
 
 
 class SqlModelAdminReportRepository(RepositoryInterface):
     def __init__(self, session: Session):
         super().__init__()
-        self.session =  session
+        self.session = session
 
     def save(self, entity: AdminReportEntity):
         try:
@@ -33,18 +33,12 @@ class SqlModelAdminReportRepository(RepositoryInterface):
         reports_model = [ReportModel(**item.model_dump()) for item in entity.reports]
 
         user_model = AdminReportModel(
-            name=entity.name,
-            email=entity.email,
-            reports=reports_model
+            name=entity.name, email=entity.email, reports=reports_model
         )
         return user_model
 
     def to_entity(self, model: AdminReportModel):
-        return AdminReportEntity(
-            name=model.name,
-            email=model.email,
-            reports=model.reports
-        )
+        return AdminReportEntity(name=model.name, email=model.email, reports=model.reports)
 
     def commit(self) -> None:
         self.session.commit()

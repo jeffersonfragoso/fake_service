@@ -1,17 +1,11 @@
 import pytest
+
 from src.core.auth.domain.entity.user import UserEntity
 
-stub_user = UserEntity(
-  username="user",
-  encrypted_password="123",
-  role="user"
-)
+stub_user = UserEntity(username="user", encrypted_password="123", role="user")
 
-stub_admin = UserEntity(
-  username="admin",
-  encrypted_password="123",
-  role="admin"
-)
+stub_admin = UserEntity(username="admin", encrypted_password="123", role="admin")
+
 
 class TestUserEntity:
     def test_is_user_role(self):
@@ -41,11 +35,7 @@ class TestUserEntity:
         Então deve retornar lançar um ValueError com a mensagem "username cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserEntity(
-                username=None,
-                encrypted_password="123",
-                role="user"
-            )
+            UserEntity(username=None, encrypted_password="123", role="user")
 
         assert str(exc_info.value) == "username cannot be empty"
 
@@ -56,11 +46,7 @@ class TestUserEntity:
         Então deve retornar lançar um ValueError com a mensagem "encrypted_password cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserEntity(
-                username="user",
-                encrypted_password=None,
-                role="user"
-            )
+            UserEntity(username="user", encrypted_password=None, role="user")
 
         assert str(exc_info.value) == "encrypted_password cannot be empty"
 
@@ -71,10 +57,6 @@ class TestUserEntity:
         Então deve retornar lançar um ValueError com a mensagem "role cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserEntity(
-                username="user",
-                encrypted_password="123",
-                role=None
-            )
+            UserEntity(username="user", encrypted_password="123", role=None)
 
         assert str(exc_info.value) == "role cannot be empty"

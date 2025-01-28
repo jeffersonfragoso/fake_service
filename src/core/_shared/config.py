@@ -13,7 +13,8 @@ class Settings(BaseSettings):
     DEFAULT_ADMIN_PASSWORD: str
 
     model_config = SettingsConfigDict(
-        extra="ignore", env_file=".env",
+        extra="ignore",
+        env_file=".env",
         case_sensitive=True,
         env_file_encoding="utf-8",
     )

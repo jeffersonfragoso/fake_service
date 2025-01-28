@@ -1,5 +1,6 @@
 from typing import List
-from sqlmodel import Field, SQLModel, Relationship, select
+
+from sqlmodel import Field, Relationship, SQLModel, select  # noqa: 401
 
 
 class UserModel(SQLModel, table=True):

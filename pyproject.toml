@@ -18,10 +18,23 @@ passlib = "^1.7.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
+flake8 = "^7.1.1"
+black = "^24.10.0"
+isort = "^6.0.0"
 
 [tool.pytest.ini_options]
 pythonpath = "src"
 python_files = ["test_*.py", "tests_*.py"]
+
+[tool.black]
+line-length = 95
+
+[tool.isort]
+profile = "black"
+line_length = 95
+
+[tool.flake8]
+max-line-length = 95
 
 [build-system]
 requires = ["poetry-core"]

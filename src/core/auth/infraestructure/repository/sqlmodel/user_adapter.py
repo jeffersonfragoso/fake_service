@@ -1,9 +1,9 @@
 from abc import abstractmethod
-from src.core._shared.infraestructure.orm import UserModel, select
-from src.core.auth.domain.entity.user import UserEntity
-from src.core._shared.infraestructure.repository_interface import RepositoryInterface
-from src.core._shared.infraestructure.database import Session
 
+from src.core._shared.infraestructure.database import Session
+from src.core._shared.infraestructure.orm import UserModel, select
+from src.core._shared.infraestructure.repository_interface import RepositoryInterface
+from src.core.auth.domain.entity.user import UserEntity
 
 
 class UserRepositoryInterface(RepositoryInterface):
@@ -15,7 +15,7 @@ class UserRepositoryInterface(RepositoryInterface):
 class SqlModelUserRepository(UserRepositoryInterface):
     def __init__(self, session: Session):
         super().__init__()
-        self.session =  session
+        self.session = session
 
     def save(self, entity: UserEntity):
         try:
@@ -53,7 +53,7 @@ class SqlModelUserRepository(UserRepositoryInterface):
         user_model = UserModel(
             username=entity.username,
             encrypted_password=entity.encrypted_password,
-            role=entity.role
+            role=entity.role,
         )
         return user_model
 
@@ -61,7 +61,7 @@ class SqlModelUserRepository(UserRepositoryInterface):
         return UserEntity(
             username=model.username,
             encrypted_password=model.encrypted_password,
-            role=model.role
+            role=model.role,
         )
 
     def commit(self) -> None:

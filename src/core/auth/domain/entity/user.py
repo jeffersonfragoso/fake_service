@@ -1,4 +1,3 @@
-
 class UserEntity:
     def __init__(
         self,
@@ -6,10 +5,10 @@ class UserEntity:
         encrypted_password: str,
         role: str,
     ):
-       self.username = username
-       self.encrypted_password = encrypted_password
-       self.role = role
-       self.validate()
+        self.username = username
+        self.encrypted_password = encrypted_password
+        self.role = role
+        self.validate()
 
     def validate(self):
         if not self.username:

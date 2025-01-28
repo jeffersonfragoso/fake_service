@@ -11,6 +11,13 @@ class CustomException(Exception):
     def __str__(self) -> str:
         return f"{self.title}: {self.detail}"
 
+
+def handle_exception(exc: CustomException, raise_errors: bool):
+    print(f"[Domain exception handler] {str(exc)}")
+    if raise_errors:
+        raise exc
+
+
 def catch_exceptions(exceptions: list[CustomException], raise_errors: bool = True):
     def decorator(func):
         @wraps(func)
@@ -18,9 +25,7 @@ def catch_exceptions(exceptions: list[CustomException], raise_errors: bool = Tru
             try:
                 return func(*args, **kwargs)
             except tuple(exceptions) as exc:
-                print(f"[Domain exception handler] {str(exc)}")
-                if raise_errors:
-                    raise exc
+                handle_exception(exc, raise_errors)
 
         return wrapper
 

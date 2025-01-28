@@ -1,13 +1,13 @@
+from src.core._shared.infraestructure.database import Session
 from src.core._shared.infraestructure.orm import PurchaseModel, UserPurchaseModel, select
 from src.core._shared.infraestructure.repository_interface import RepositoryInterface
-from src.core._shared.infraestructure.database import Session
 from src.core.user_purchases.domain.entity.user_purchase import UserPurchaseEntity
 
 
 class SqlModelUserPurchaseRepository(RepositoryInterface):
     def __init__(self, session: Session):
         super().__init__()
-        self.session =  session
+        self.session = session
 
     def save(self, entity: UserPurchaseEntity):
         try:
@@ -37,7 +37,6 @@ class SqlModelUserPurchaseRepository(RepositoryInterface):
             purchases=purchases_model,
         )
         return user_model
-
 
     def to_entity(self, model: UserPurchaseModel):
         return UserPurchaseEntity(

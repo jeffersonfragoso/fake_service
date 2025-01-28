@@ -3,14 +3,16 @@ from src.core._shared.infraestructure.crypt import Crypt
 from src.core.auth.application.use_cases.dto import AuthDto
 from src.core.auth.infraestructure.exceptions import UnauthorizedException
 from src.core.auth.infraestructure.jwt_auth_adapter import JwtAuthAdapter
-from src.core.auth.infraestructure.repository.sqlmodel.user_adapter import UserRepositoryInterface
+from src.core.auth.infraestructure.repository.sqlmodel.user_adapter import (
+    UserRepositoryInterface,
+)
 
 
 class AuthenticationException(BaseException):
     pass
 
 
-class CreateAccesToken():
+class CreateAccesToken:
     def __init__(self, repository: UserRepositoryInterface):
         self.repository = repository
 

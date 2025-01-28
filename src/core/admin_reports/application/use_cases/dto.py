@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel
 
 
@@ -12,9 +11,9 @@ class AdminReportDto:
     class OutPutGetAdminReports(BaseModel):
         name: str
         email: str
-        reports: list["ReportDto"]
+        reports: list["ReportDto"]  # noqa: F821
 
     class InputNewAdminReports(BaseModel):
         name: str
         email: str
-        reports: list["ReportDto"] | None = None
+        reports: list["ReportDto"] | None = None  # noqa: F821

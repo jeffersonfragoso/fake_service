@@ -8,10 +8,10 @@ class UserPurchaseEntity:
         email: str,
         purchases: list[Any] | None = None,
     ):
-       self.name = name
-       self.email = email
-       self.purchases: list[Any] | None= purchases
-       self.validate()
+        self.name = name
+        self.email = email
+        self.purchases: list[Any] | None = purchases
+        self.validate()
 
     def validate(self):
         if not self.name:

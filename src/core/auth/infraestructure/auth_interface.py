@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Any
 
 from src.core.auth.application.use_cases.dto import AuthDto
+
 
 class AuthInterface(ABC):
 

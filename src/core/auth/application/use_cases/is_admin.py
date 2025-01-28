@@ -1,10 +1,12 @@
 from src.core._shared.exceptions import catch_exceptions
 from src.core.auth.infraestructure.exceptions import ForbiddenException
 from src.core.auth.infraestructure.jwt_auth_adapter import JwtAuthAdapter
-from src.core.auth.infraestructure.repository.sqlmodel.user_adapter import UserRepositoryInterface
+from src.core.auth.infraestructure.repository.sqlmodel.user_adapter import (
+    UserRepositoryInterface,
+)
 
 
-class IsAdmin():
+class IsAdmin:
     def __init__(self, repository: UserRepositoryInterface):
         self.repository = repository
 

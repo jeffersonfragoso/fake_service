@@ -1,4 +1,5 @@
 import pytest
+
 from src.core.user_purchases.domain.entity.user_purchase import UserPurchaseEntity
 
 
@@ -10,11 +11,7 @@ class TestUserPurchaseEntity:
         Então deve lançar um ValueError com a mensagem "name cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserPurchaseEntity(
-                name=None,
-                email="john@example.com",
-                purchases=[{}]
-            )
+            UserPurchaseEntity(name=None, email="john@example.com", purchases=[{}])
 
         assert str(exc_info.value) == "name cannot be empty"
 
@@ -25,11 +22,7 @@ class TestUserPurchaseEntity:
         Então deve lançar um ValueError com a mensagem "email cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserPurchaseEntity(
-                name="John Doe",
-                email=None,
-                purchases=[{}]
-            )
+            UserPurchaseEntity(name="John Doe", email=None, purchases=[{}])
 
         assert str(exc_info.value) == "email cannot be empty"
 
@@ -40,10 +33,6 @@ class TestUserPurchaseEntity:
         Então deve retornar lançar um ValueError com a mensagem "purchases cannot be empty"
         """
         with pytest.raises(ValueError) as exc_info:
-            UserPurchaseEntity(
-                name="John Doe",
-                email="john@example.com",
-                purchases=None
-            )
+            UserPurchaseEntity(name="John Doe", email="john@example.com", purchases=None)
 
         assert str(exc_info.value) == "purchases cannot be empty"

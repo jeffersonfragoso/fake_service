@@ -10,8 +10,10 @@ async def custom_exception_handler(_: Request, exc: CustomHttpErrorException) ->
     print(f"[Web Api exception handler] The execution resulted in an error {str(exc)}")
     return JSONResponse(**exc.as_json())
 
+
 def register_routes(app: FastAPI):
     app.include_router(v1_routers)
+
 
 def register_exceptions(app: FastAPI):
     app.add_exception_handler(CustomHttpErrorException, custom_exception_handler)

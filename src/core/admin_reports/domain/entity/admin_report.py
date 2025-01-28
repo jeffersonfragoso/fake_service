@@ -8,10 +8,10 @@ class AdminReportEntity:
         email: str,
         reports: list[Any],
     ):
-       self.name = name
-       self.email = email
-       self.reports: list[Any] | None = reports
-       self.validate()
+        self.name = name
+        self.email = email
+        self.reports: list[Any] | None = reports
+        self.validate()
 
     def validate(self):
         if not self.name:
