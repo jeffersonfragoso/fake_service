@@ -9,9 +9,7 @@ class UserEntity:
        self.username = username
        self.encrypted_password = encrypted_password
        self.role = role
-
-    def __post_init__(self):
-        self.validate()
+       self.validate()
 
     def validate(self):
         if not self.username:

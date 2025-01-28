@@ -30,4 +30,5 @@ RUN chown -R app:app /home/fake-service
 USER app
 WORKDIR /home/fake-service
 COPY ./src /home/fake-service/src
+COPY ./tests /home/fake-service/tests
 ENV PYTHONPATH=${PYTHONPATH}/home/fake-service/src

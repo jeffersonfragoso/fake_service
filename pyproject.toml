@@ -16,6 +16,12 @@ pyjwt = {extras = ["crypto"], version = "^2.10.1"}
 sqlmodel = "^0.0.22"
 passlib = "^1.7.4"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+python_files = ["test_*.py", "tests_*.py"]
 
 [build-system]
 requires = ["poetry-core"]

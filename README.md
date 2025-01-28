@@ -30,11 +30,12 @@ Para testar o funcionamento utilize a interface gráfica do Swagger após inicia
 
 1. Possuir o Docker e Docker Compose instalados. [ [Docker](https://docs.docker.com/get-docker/), [Docker Compose](https://docs.docker.com/compose/install/)]
 2. Criar o arquivo `.env` no diretório raiz do projeto.
-3. Adicionar os valores das variáveis necessárias. Ex.:
+3. Adicionar no arquivo `.env` os valores das variáveis necessárias. Ex.:
 ```
 DB_URL=sqlite:///database.db
 SECRET_KEY=secret_key
-DEFAULT_ADMIN=admin
+DEFAULT_ADMIN=admin,
+
 DEFAULT_ADMIN_PASSWORD=JKSipm0YH
 DEFAULT_USER=user
 DEFAULT_USER_PASSWORD=L0XuwPOdS5U
@@ -54,16 +55,23 @@ api  | INFO:     Started server process [8]
 api  | INFO:     Waiting for application startup.
 api  | INFO:     Application startup complete.
 ```
-Acesse: `http://localhost:8000/docs`
+Acesse a interface swagger para testar as requisições: `http://localhost:8000/docs`
+
+## Execução dos testes da aplicação
+
+Para executar os testes utilize o comando abaixo:
+
+```bash
+  $ docker compose run --rm --no-deps --entrypoint="python -m pytest -p no:cacheprovider" api
+```
 
 ## Stack utilizada
 
 - [Python 3.12](https://www.python.org/downloads/release/python-3120/)
-- [poetry - Python package e project manager](https://python-poetry.org/)
+- [Poetry - Python package e project manager](https://python-poetry.org/)
 - [FastApi](https://fastapi.tiangolo.com/)
 - [SqlModel](https://sqlmodel.tiangolo.com/)
-<!-- - [httpx](https://www.python-httpx.org/) -->
-<!-- - [pytest](https://docs.pytest.org/en/stable/) -->
+- [pytest](https://docs.pytest.org/en/stable/)
 
 ## Referências
 
