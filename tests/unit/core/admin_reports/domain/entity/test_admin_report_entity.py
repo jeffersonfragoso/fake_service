@@ -1,10 +1,8 @@
 import pytest
 from src.core.admin_reports.domain.entity.admin_report import AdminReportEntity
-from src.core.admin_reports.application.use_cases.dto import AdminReportDto
-
 
 class TestAdminReportEntity:
-    def test_username_cannot_be_empty(self):
+    def test_name_cannot_be_empty(self):
         """
         Dado solicitar criar um novo Admin Report
         Quando não for informado o campo "name"
@@ -14,12 +12,12 @@ class TestAdminReportEntity:
             AdminReportEntity(
                 name=None,
                 email="admin@example.com",
-                reports=[]
+                reports=[{}]
             )
 
         assert str(exc_info.value) == "name cannot be empty"
 
-    def test_encrypted_password_cannot_be_empty(self):
+    def test_email_cannot_be_empty(self):
         """
         Dado solicitar criar um novo Admin Report
         Quando não for informado o campo "email"
@@ -29,12 +27,12 @@ class TestAdminReportEntity:
             AdminReportEntity(
                 name="Admin Master",
                 email=None,
-                reports=[]
+                reports=[{}]
             )
 
         assert str(exc_info.value) == "email cannot be empty"
 
-    def test_role_cannot_be_empty(self):
+    def test_reports_cannot_be_empty(self):
         """
         Dado solicitar criar um novo Admin Report
         Quando não for informado o campo "reports"

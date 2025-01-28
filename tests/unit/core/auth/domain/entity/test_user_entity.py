@@ -36,7 +36,7 @@ class TestUserEntity:
 
     def test_username_cannot_be_empty(self):
         """
-        Dado um usuário
+        Dado solicitar criar um novo usuário
         Quando não for informado o campo "username"
         Então deve retornar lançar um ValueError com a mensagem "username cannot be empty"
         """
@@ -51,7 +51,7 @@ class TestUserEntity:
 
     def test_encrypted_password_cannot_be_empty(self):
         """
-        Dado um usuário
+        Dado solicitar criar um novo usuário
         Quando não for informado o campo "encrypted_password"
         Então deve retornar lançar um ValueError com a mensagem "encrypted_password cannot be empty"
         """
@@ -66,7 +66,7 @@ class TestUserEntity:
 
     def test_role_cannot_be_empty(self):
         """
-        Dado um usuário
+        Dado solicitar criar um novo usuário
         Quando não for informado o campo "role"
         Então deve retornar lançar um ValueError com a mensagem "role cannot be empty"
         """
