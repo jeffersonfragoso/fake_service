@@ -34,8 +34,7 @@ Para testar o funcionamento utilize a interface gráfica do Swagger após inicia
 ```
 DB_URL=sqlite:///database.db
 SECRET_KEY=secret_key
-DEFAULT_ADMIN=admin,
-
+DEFAULT_ADMIN=admin
 DEFAULT_ADMIN_PASSWORD=JKSipm0YH
 DEFAULT_USER=user
 DEFAULT_USER_PASSWORD=L0XuwPOdS5U

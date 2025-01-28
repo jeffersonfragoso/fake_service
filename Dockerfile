@@ -1,4 +1,4 @@
-FROM python:3.12.8-slim as base
+FROM python:3.12.8-slim AS base
 
 ENV PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
@@ -17,13 +17,13 @@ RUN apt-get update && \
   pip install "poetry==$POETRY_VERSION"
 
 # instala dependencias do app
-FROM base as dependencies_stage
+FROM base AS dependencies_stage
 WORKDIR /tmp
 COPY ./pyproject.toml ./poetry.lock /tmp/
 RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
 
 # configura usuário app e arquivos para execução
-FROM dependencies_stage as runtime
+FROM dependencies_stage AS runtime
 RUN mkdir -p /home/fake-service
 RUN addgroup --system app && adduser --system --group app
 RUN chown -R app:app /home/fake-service
