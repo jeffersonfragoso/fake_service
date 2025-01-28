@@ -1,19 +1,17 @@
 from typing import Any
 
 
-class AdeminReportEntity:
+class AdminReportEntity:
     def __init__(
         self,
         name: str,
         email: str,
-        reports: list[Any] | None = None,
+        reports: list[Any],
     ):
        self.name = name
        self.email = email
        self.reports: list[Any] | None = reports
-
-    def __post_init__(self):
-        self.validate()
+       self.validate()
 
     def validate(self):
         if not self.name:
