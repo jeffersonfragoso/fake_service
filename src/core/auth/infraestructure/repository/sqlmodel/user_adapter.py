@@ -1,10 +1,13 @@
 from abc import abstractmethod
 
+import structlog
+
 from src.core._shared.infraestructure.database import Session
 from src.core._shared.infraestructure.orm import UserModel, select
 from src.core._shared.infraestructure.repository_interface import RepositoryInterface
 from src.core.auth.domain.entity.user import UserEntity
 
+log = structlog.stdlib.get_logger()
 
 class UserRepositoryInterface(RepositoryInterface):
     @abstractmethod
@@ -22,7 +25,7 @@ class SqlModelUserRepository(UserRepositoryInterface):
             self.session.add(self._to_orm(entity))
             self.commit()
         except Exception as e:
-            print(e)
+            log.error(e)
             self.rollback()
 
     def first(self) -> UserEntity:
@@ -35,7 +38,7 @@ class SqlModelUserRepository(UserRepositoryInterface):
             else:
                 return None
         except Exception as e:
-            print(e)
+            log.error(e)
 
     def user_of_name(self, username: str) -> UserEntity | None:
         try:
@@ -47,7 +50,7 @@ class SqlModelUserRepository(UserRepositoryInterface):
             else:
                 return None
         except Exception as e:
-            print(e)
+            log.error(e)
 
     def _to_orm(self, entity: UserEntity):
         user_model = UserModel(

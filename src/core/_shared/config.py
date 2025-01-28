@@ -1,7 +1,9 @@
+import structlog
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+log = structlog.stdlib.get_logger()
 
 class Settings(BaseSettings):
     ENV_NAME: str = "Local"
@@ -11,6 +13,9 @@ class Settings(BaseSettings):
     DEFAULT_USER_PASSWORD: str
     DEFAULT_ADMIN: str
     DEFAULT_ADMIN_PASSWORD: str
+
+    LOG_LEVEL: str = "INFO"
+    ENABLE_JSON_LOGS: bool = False
 
     model_config = SettingsConfigDict(
         extra="ignore",
@@ -23,5 +28,5 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     settings = Settings()
-    print(f"Loading settings for: {settings.ENV_NAME}")
+    log.info(f"Loading settings for: {settings.ENV_NAME}")
     return settings

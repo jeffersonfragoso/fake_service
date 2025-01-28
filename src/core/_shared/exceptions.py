@@ -1,7 +1,10 @@
+import structlog
 from dataclasses import dataclass
 from functools import wraps
 from typing import Any
 
+
+log = structlog.stdlib.get_logger()
 
 @dataclass
 class CustomException(Exception):
@@ -13,7 +16,7 @@ class CustomException(Exception):
 
 
 def handle_exception(exc: CustomException, raise_errors: bool):
-    print(f"[Domain exception handler] {str(exc)}")
+    log.info(f"[Domain exception handler] {str(exc)}")
     if raise_errors:
         raise exc
 

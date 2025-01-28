@@ -1,8 +1,10 @@
+import structlog
 from src.core._shared.infraestructure.database import Session
 from src.core._shared.infraestructure.orm import AdminReportModel, ReportModel, select
 from src.core._shared.infraestructure.repository_interface import RepositoryInterface
 from src.core.admin_reports.domain.entity.admin_report import AdminReportEntity
 
+log = structlog.stdlib.get_logger()
 
 class SqlModelAdminReportRepository(RepositoryInterface):
     def __init__(self, session: Session):
@@ -14,7 +16,7 @@ class SqlModelAdminReportRepository(RepositoryInterface):
             self.session.add(self._to_orm(entity))
             self.commit()
         except Exception as e:
-            print(e)
+            log.error(e)
             self.rollback()
 
     def first(self) -> AdminReportEntity:
@@ -27,7 +29,7 @@ class SqlModelAdminReportRepository(RepositoryInterface):
             else:
                 return None
         except Exception as e:
-            print(e)
+            log.error(e)
 
     def _to_orm(self, entity: AdminReportEntity):
         reports_model = [ReportModel(**item.model_dump()) for item in entity.reports]
